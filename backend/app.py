@@ -99,7 +99,9 @@ def parse_csv():
         })
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        # Log error for debugging but don't expose details to client
+        app.logger.error(f"Error parsing CSV: {str(e)}")
+        return jsonify({'error': 'Failed to parse CSV file. Please check the file format.'}), 500
 
 @app.route('/api/csv/import', methods=['POST'])
 def import_csv():
@@ -139,7 +141,9 @@ def import_csv():
         })
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        # Log error for debugging but don't expose details to client
+        app.logger.error(f"Error importing CSV: {str(e)}")
+        return jsonify({'error': 'Failed to import transactions. Please check the file format and mapping.'}), 500
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -147,4 +151,7 @@ def health_check():
     return jsonify({'status': 'ok'})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    import os
+    # Only enable debug mode in development (not in production)
+    debug_mode = os.environ.get('FLASK_ENV') == 'development'
+    app.run(debug=debug_mode, port=5000)

@@ -41,6 +41,7 @@ if [ ! -f "venv/bin/flask" ]; then
 fi
 
 # Start backend in background
+export FLASK_ENV=development
 python app.py &
 BACKEND_PID=$!
 echo -e "${GREEN}Backend started on http://localhost:5000 (PID: $BACKEND_PID)${NC}"
