@@ -113,7 +113,7 @@ def main():
     
     all_passed = all(r[1] for r in results)
     print("=" * 60)
-    print(f"\nOverall: {'✓ ALL TESTS PASSED' if all_passed else '✗ SOME TESTS FAILED'}")
+    print(f"\nOverall: {' ALL TESTS PASSED' if all_passed else 'SOME TESTS FAILED'}")
 
 if __name__ == '__main__':
     main()
